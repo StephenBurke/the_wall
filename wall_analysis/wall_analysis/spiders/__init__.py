@@ -24,5 +24,5 @@ class LyricSpider(scrapy.Spider):
         filename = f'lyric-{page}.html'
 
         with open(filename, 'wb') as f:
-            f.write(lyrics)
+            f.write(response.css('div/col-md::text').getall())
         self.log(f'Saved file {filename}')
