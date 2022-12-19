@@ -16,10 +16,13 @@ class LyricSpider(scrapy.Spider):
 
     def parse(self, response):
 
+        yield {'lyrics': response.css('div/col-md::text').getall()}
+
+        # A way to store what's crawled maybe
+
         page = response.url.split("/")[-1]
         filename = f'lyric-{page}.html'
 
         with open(filename, 'wb') as f:
-            f.write(response.css('div/col-md-9').getall())
-
+            f.write(lyrics)
         self.log(f'Saved file {filename}')
